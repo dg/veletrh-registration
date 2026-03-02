@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { registrationSchema } from "@/lib/validations";
-import { sendConfirmationEmail } from "@/lib/email";
+// import { sendConfirmationEmail } from "@/lib/email";
 
 export async function POST(request: Request) {
   try {
@@ -29,8 +29,8 @@ export async function POST(request: Request) {
       data: { firstName, lastName, email, country },
     });
 
-    // Fire-and-forget — don't block response on email
-    sendConfirmationEmail(email, firstName);
+    // TODO: enable when RESEND_API_KEY is configured
+    // sendConfirmationEmail(email, firstName);
 
     return NextResponse.json(
       { message: "Registrace úspěšná", id: registration.id },
