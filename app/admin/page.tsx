@@ -11,6 +11,8 @@ interface Registration {
   lastName: string;
   email: string;
   country: string;
+  city: string;
+  budget: number;
   createdAt: string;
 }
 

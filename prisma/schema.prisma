@@ -13,5 +13,7 @@ model Registration {
   lastName  String
   email     String   @unique
   country   String
+  city      String
+  budget    Int
   createdAt DateTime @default(now())
 }

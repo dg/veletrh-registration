@@ -6,6 +6,8 @@ interface Registration {
   lastName: string;
   email: string;
   country: string;
+  city: string;
+  budget: number;
   createdAt: string;
 }
 
@@ -27,7 +29,9 @@ export default function RegistrationTable({ registrations }: RegistrationTablePr
             <th className="px-4 py-3">Jméno</th>
             <th className="px-4 py-3">Příjmení</th>
             <th className="px-4 py-3">E-mail</th>
+            <th className="px-4 py-3">Město</th>
             <th className="px-4 py-3">Země</th>
+            <th className="px-4 py-3">Rozpočet</th>
             <th className="px-4 py-3">Datum</th>
           </tr>
         </thead>
@@ -38,7 +42,9 @@ export default function RegistrationTable({ registrations }: RegistrationTablePr
               <td className="px-4 py-3">{reg.firstName}</td>
               <td className="px-4 py-3">{reg.lastName}</td>
               <td className="px-4 py-3">{reg.email}</td>
+              <td className="px-4 py-3">{reg.city}</td>
               <td className="px-4 py-3">{reg.country}</td>
+              <td className="px-4 py-3">{reg.budget.toLocaleString("cs-CZ")} €</td>
               <td className="px-4 py-3">
                 {new Date(reg.createdAt).toLocaleString("cs-CZ")}
               </td>

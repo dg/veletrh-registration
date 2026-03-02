@@ -20,7 +20,9 @@ export async function GET() {
     { header: "Jméno", key: "firstName", width: 20 },
     { header: "Příjmení", key: "lastName", width: 20 },
     { header: "E-mail", key: "email", width: 30 },
+    { header: "Město", key: "city", width: 20 },
     { header: "Země", key: "country", width: 20 },
+    { header: "Rozpočet (EUR)", key: "budget", width: 15 },
     { header: "Datum registrace", key: "createdAt", width: 22 },
   ];
 
@@ -33,7 +35,9 @@ export async function GET() {
       firstName: reg.firstName,
       lastName: reg.lastName,
       email: reg.email,
+      city: reg.city,
       country: reg.country,
+      budget: reg.budget,
       createdAt: reg.createdAt.toLocaleString("cs-CZ"),
     });
   }

@@ -15,7 +15,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const { firstName, lastName, email, country } = parsed.data;
+    const { firstName, lastName, email, country, city, budget } = parsed.data;
 
     const existing = await prisma.registration.findUnique({ where: { email } });
     if (existing) {
@@ -26,7 +26,7 @@ export async function POST(request: Request) {
     }
 
     const registration = await prisma.registration.create({
-      data: { firstName, lastName, email, country },
+      data: { firstName, lastName, email, country, city, budget },
     });
 
     // TODO: enable when RESEND_API_KEY is configured

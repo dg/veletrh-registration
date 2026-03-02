@@ -10,6 +10,8 @@ export default function RegistrationForm() {
     email: "",
     country: "Czech Republic",
     customCountry: "",
+    city: "",
+    budget: "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -27,6 +29,8 @@ export default function RegistrationForm() {
       lastName: form.lastName,
       email: form.email,
       country: showCustomCountry ? form.customCountry : form.country,
+      city: form.city,
+      budget: form.budget === "" ? undefined : Number(form.budget),
     };
 
     const parsed = registrationSchema.safeParse(data);
@@ -76,6 +80,8 @@ export default function RegistrationForm() {
     );
   }
 
+  const inputClass = "w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none";
+
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
       {status === "error" && (
@@ -91,9 +97,10 @@ export default function RegistrationForm() {
         <input
           id="firstName"
           type="text"
+          maxLength={100}
           value={form.firstName}
           onChange={(e) => setForm({ ...form, firstName: e.target.value })}
-          className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none"
+          className={inputClass}
         />
         {errors.firstName && (
           <p className="mt-1 text-sm text-red-600">{errors.firstName}</p>
@@ -107,9 +114,10 @@ export default function RegistrationForm() {
         <input
           id="lastName"
           type="text"
+          maxLength={100}
           value={form.lastName}
           onChange={(e) => setForm({ ...form, lastName: e.target.value })}
-          className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none"
+          className={inputClass}
         />
         {errors.lastName && (
           <p className="mt-1 text-sm text-red-600">{errors.lastName}</p>
@@ -123,12 +131,30 @@ export default function RegistrationForm() {
         <input
           id="email"
           type="email"
+          maxLength={200}
           value={form.email}
           onChange={(e) => setForm({ ...form, email: e.target.value })}
-          className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none"
+          className={inputClass}
         />
         {errors.email && (
           <p className="mt-1 text-sm text-red-600">{errors.email}</p>
+        )}
+      </div>
+
+      <div>
+        <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-1">
+          Město
+        </label>
+        <input
+          id="city"
+          type="text"
+          maxLength={100}
+          value={form.city}
+          onChange={(e) => setForm({ ...form, city: e.target.value })}
+          className={inputClass}
+        />
+        {errors.city && (
+          <p className="mt-1 text-sm text-red-600">{errors.city}</p>
         )}
       </div>
 
@@ -140,7 +166,7 @@ export default function RegistrationForm() {
           id="country"
           value={form.country}
           onChange={(e) => setForm({ ...form, country: e.target.value })}
-          className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none"
+          className={inputClass}
         >
           <option value="Czech Republic">Česká republika</option>
           <option value="Slovakia">Slovensko</option>
@@ -156,15 +182,34 @@ export default function RegistrationForm() {
           <input
             id="customCountry"
             type="text"
+            maxLength={100}
             value={form.customCountry}
             onChange={(e) => setForm({ ...form, customCountry: e.target.value })}
-            className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none"
+            className={inputClass}
           />
           {errors.country && (
             <p className="mt-1 text-sm text-red-600">{errors.country}</p>
           )}
         </div>
       )}
+
+      <div>
+        <label htmlFor="budget" className="block text-sm font-medium text-gray-700 mb-1">
+          Rozpočet (EUR)
+        </label>
+        <input
+          id="budget"
+          type="number"
+          min={0}
+          max={10000000}
+          value={form.budget}
+          onChange={(e) => setForm({ ...form, budget: e.target.value })}
+          className={inputClass}
+        />
+        {errors.budget && (
+          <p className="mt-1 text-sm text-red-600">{errors.budget}</p>
+        )}
+      </div>
 
       <button
         type="submit"
