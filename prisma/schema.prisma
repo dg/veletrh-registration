@@ -13,7 +13,7 @@ model Registration {
   lastName  String
   email     String   @unique
   country   String
-  city      String
-  budget    Int
+  city      String @default("")
+  budget    Int    @default(0)
   createdAt DateTime @default(now())
 }
